@@ -14,7 +14,8 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navClasses = `fixed top-0 w-full z-50 transition-all duration-300`;
+  // z-100 ensures the mobile menu is ON TOP of everything (including social strip)
+  const navClasses = `fixed top-0 w-full z-[100] transition-all duration-300`;
   const bgClasses = `absolute inset-0 transition-all duration-300 ${
     scrolled
       ? 'bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-neutral-100 dark:border-neutral-800'

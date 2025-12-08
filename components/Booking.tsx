@@ -1,7 +1,32 @@
-import React from 'react';
-import { MessageSquare, Mail, ArrowRight, Clock, CheckCircle2, MessageCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { MessageSquare, Mail, ArrowRight, Clock, CheckCircle2, MessageCircle, Loader2, Check } from 'lucide-react';
 
 const Booking: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData
+        });
+        
+        if (response.ok) {
+            setIsSuccess(true);
+        }
+    } catch (error) {
+        console.error("Form submission error", error);
+    } finally {
+        setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="booking" className="py-24 px-6 bg-neutral-900 text-white relative overflow-hidden">
       {/* Decorative background elements */}
@@ -30,32 +55,56 @@ const Booking: React.FC = () => {
                     </div>
                   </div>
 
-                  <form action="https://api.web3forms.com/submit" method="POST" className="mt-6 space-y-4">
-                    
-                    {/* INSTRUCTIONS: Get your free Access Key from https://web3forms.com/ and paste it below */}
-                    <input type="hidden" name="access_key" value="97bec017-c917-43a4-a023-5a33f0b24916" />
-                    
-                    <div className="">
-                      <label htmlFor="ct-name" className="block text-xs text-neutral-600 font-sans">Your name<span className="text-neutral-400"> *</span></label>
-                      <input id="ct-name" name="name" type="text" required placeholder="Jane Doe" className="mt-1 w-full pl-3 pr-3 py-2.5 text-sm rounded-xl ring-1 ring-black/10 focus:ring-2 focus:ring-neutral-900 outline-none bg-white text-neutral-900 placeholder:text-neutral-400 font-sans" />
+                  {isSuccess ? (
+                    <div className="mt-6 py-12 flex flex-col items-center text-center animate-fade-in">
+                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 text-green-600">
+                            <Check size={32} />
+                        </div>
+                        <h4 className="text-xl font-bold text-neutral-900 mb-2">Application Received</h4>
+                        <p className="text-sm text-neutral-500">We'll analyze your request and reply within 24 hours.</p>
+                        <button onClick={() => setIsSuccess(false)} className="mt-6 text-xs text-indigo-500 font-semibold hover:underline">Send another message</button>
                     </div>
-                    <div className="">
-                      <label htmlFor="ct-email" className="block text-xs text-neutral-600 font-sans">Email<span className="text-neutral-400"> *</span></label>
-                      <div className="relative mt-1">
-                        <Mail className="h-4 w-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                        <input id="ct-email" name="email" type="email" required placeholder="you@example.com" className="w-full pl-9 pr-3 py-2.5 text-sm rounded-xl ring-1 ring-black/10 focus:ring-2 focus:ring-neutral-900 outline-none bg-white text-neutral-900 placeholder:text-neutral-400 font-sans" />
-                      </div>
-                    </div>
-                    <div className="">
-                      <label htmlFor="ct-msg" className="block text-xs text-neutral-600 font-sans">Message</label>
-                      <textarea id="ct-msg" name="message" rows={4} placeholder="Tell us about your brand goals..." className="mt-1 w-full resize-y pl-3 pr-3 py-2.5 text-sm rounded-xl ring-1 ring-black/10 focus:ring-2 focus:ring-neutral-900 outline-none bg-white text-neutral-900 placeholder:text-neutral-400 font-sans"></textarea>
-                    </div>
-                    <button type="submit" className="w-full inline-flex items-center justify-center rounded-xl bg-neutral-900 text-white px-4 py-3 text-sm font-semibold hover:bg-neutral-800 transition-colors font-sans">
-                      Submit Application
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </button>
-                    <p className="text-[11px] text-neutral-500 font-sans">By submitting, you agree to our Terms and Privacy Policy.</p>
-                  </form>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                        
+                        {/* INSTRUCTIONS: Get your free Access Key from https://web3forms.com/ and paste it below */}
+                        <input type="hidden" name="access_key" value="97bec017-c917-43a4-a023-5a33f0b24916" />
+                        
+                        <div className="">
+                        <label htmlFor="ct-name" className="block text-xs text-neutral-600 font-sans dark:text-neutral-500">Your name<span className="text-neutral-400"> *</span></label>
+                        <input id="ct-name" name="name" type="text" required placeholder="Jane Doe" className="mt-1 w-full pl-3 pr-3 py-2.5 text-sm rounded-xl ring-1 ring-black/10 focus:ring-2 focus:ring-neutral-900 outline-none bg-white text-neutral-900 placeholder:text-neutral-400 font-sans" />
+                        </div>
+                        <div className="">
+                        <label htmlFor="ct-email" className="block text-xs text-neutral-600 font-sans dark:text-neutral-500">Email<span className="text-neutral-400"> *</span></label>
+                        <div className="relative mt-1">
+                            <Mail className="h-4 w-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <input id="ct-email" name="email" type="email" required placeholder="you@example.com" className="w-full pl-9 pr-3 py-2.5 text-sm rounded-xl ring-1 ring-black/10 focus:ring-2 focus:ring-neutral-900 outline-none bg-white text-neutral-900 placeholder:text-neutral-400 font-sans" />
+                        </div>
+                        </div>
+                        <div className="">
+                        <label htmlFor="ct-msg" className="block text-xs text-neutral-600 font-sans dark:text-neutral-500">Message</label>
+                        <textarea id="ct-msg" name="message" rows={4} placeholder="Tell us about your brand goals..." className="mt-1 w-full resize-y pl-3 pr-3 py-2.5 text-sm rounded-xl ring-1 ring-black/10 focus:ring-2 focus:ring-neutral-900 outline-none bg-white text-neutral-900 placeholder:text-neutral-400 font-sans"></textarea>
+                        </div>
+                        <button 
+                            type="submit" 
+                            disabled={isSubmitting}
+                            className="w-full inline-flex items-center justify-center rounded-xl bg-neutral-900 text-white px-4 py-3 text-sm font-semibold hover:bg-neutral-800 transition-colors font-sans disabled:opacity-70 disabled:cursor-not-allowed"
+                        >
+                        {isSubmitting ? (
+                            <>
+                                <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                                Sending...
+                            </>
+                        ) : (
+                            <>
+                                Submit Application
+                                <ArrowRight className="h-4 w-4 ml-2" />
+                            </>
+                        )}
+                        </button>
+                        <p className="text-[11px] text-neutral-500 font-sans">By submitting, you agree to our Terms and Privacy Policy.</p>
+                    </form>
+                  )}
                 </div>
               </div>
 

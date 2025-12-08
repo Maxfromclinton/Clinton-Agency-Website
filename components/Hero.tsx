@@ -5,7 +5,7 @@ const Hero: React.FC = () => {
   return (
     <header className="relative w-full h-screen min-h-[750px] overflow-hidden bg-dark-900">
       {/* Background Image with Slow Zoom */}
-      <div className="absolute inset-0 w-full h-full animate-zoom-slow">
+      <div className="absolute inset-0 w-full h-full animate-zoom-slow pointer-events-none">
         <img
           src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2500&auto=format&fit=crop"
           alt="Modern Agency Office"

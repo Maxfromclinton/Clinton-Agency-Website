@@ -105,6 +105,12 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
         }
+        
+        /* Gradient Mask for Marquees */
+        .mask-gradient-x {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
 
         /* Animated Button 53 Styles */
         .btn-53,
@@ -128,7 +134,7 @@
             margin: 0;
             -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
             padding: 0;
-            text-decoration: none; /* Important for anchor use */
+            text-decoration: none;
         }
 
         .btn-53:disabled {
@@ -214,18 +220,6 @@
         .btn-53:hover span:nth-child(12) { transition-delay: 0.55s; }
         .btn-53:hover span:nth-child(13) { transition-delay: 0.60s; }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
-    "react/": "https://aistudiocdn.com/react@^19.2.1/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
-    "vite": "https://aistudiocdn.com/vite@^7.2.6",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
-  }
-}
-</script>
 </head>
 <body class="bg-white text-neutral-900 dark:bg-dark-900 dark:text-neutral-100 transition-colors duration-300">
     <div id="root"></div>
