@@ -38,6 +38,7 @@
                         'fade-in': 'fadeIn 1s ease-out both',
                         'blur-in': 'blurIn 0.8s ease-out both',
                         'zoom-slow': 'zoomSlow 20s linear infinite alternate',
+                        'scroll': 'scroll 60s linear infinite',
                     },
                     keyframes: {
                         fadeInUp: {
@@ -55,6 +56,10 @@
                         zoomSlow: {
                             '0%': { transform: 'scale(1)' },
                             '100%': { transform: 'scale(1.1)' },
+                        },
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
                         }
                     }
                 }
@@ -212,12 +217,12 @@
 <script type="importmap">
 {
   "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
     "react/": "https://aistudiocdn.com/react@^19.2.1/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
     "vite": "https://aistudiocdn.com/vite@^7.2.6",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/"
   }
 }
 </script>
