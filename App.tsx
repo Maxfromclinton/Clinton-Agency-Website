@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import SocialStrip from './components/SocialStrip';
 import Trend from './components/Trend';
 import Services from './components/Services';
 import Portfolio from './components/Portfolio';
@@ -16,6 +17,7 @@ function App() {
       <Navbar />
       <main>
         <Hero />
+        <SocialStrip />
         <Trend />
         <Services />
         <Portfolio />
